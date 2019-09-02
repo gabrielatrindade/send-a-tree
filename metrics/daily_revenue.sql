@@ -1,6 +1,6 @@
 -- Daily Revenue
 -- remember, the first super_tree is free, then I need to check if it is the first one or not
-SELECT
+SELECT current_date-1 AS date,
 (-- it returns people who sent the first super tree yesterday (revenue=count-1)
 SELECT SUM(super_tree_sends) FROM
     (SELECT 
@@ -35,4 +35,5 @@ JOIN
     FROM super_tree
     WHERE date = current_date-1
     GROUP BY user_id) AS revenue
-ON first_send_before_yesterday.user_id = revenue.user_id);
+ON first_send_before_yesterday.user_id = revenue.user_id)
+AS daily_revenue;

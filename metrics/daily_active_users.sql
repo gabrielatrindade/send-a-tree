@@ -1,5 +1,6 @@
 SELECT 
-    COUNT(DISTINCT(user_id))
+    current_date-1 AS date,
+    COUNT(DISTINCT(user_id)) AS daily_active_users
 FROM
     (
     SELECT * FROM free_tree
