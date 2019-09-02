@@ -44,3 +44,13 @@ psql -U gtrindadi -d postgres -f ~/jds_june_2019/metrics/daily_revenue.sql > ~/j
 mutt -s"REGISTRATIONS/SUPER TREE USERS WHO SENT MORE THAN ONE metric" gabizinha_hzs@hotmail.com < /home/gtrindadi/jds_june_2019/metrics/super_tree_to_registrations_rate_output
 mutt -s"DAILY ACTIVE USERS metric" gabizinha_hzs@hotmail.com < /home/gtrindadi/jds_june_2019/metrics/daily_active_users_output
 mutt -s"DAILY REVENUE metric" gabizinha_hzs@hotmail.com < /home/gtrindadi/jds_june_2019/metrics/daily_revenue_output
+
+#puting metric datas into kpi tables
+psql -U gtrindadi -d postgres -c "INSERT INTO daily_active_users_kpi (SELECT current_date-1 AS date, COUNT(DISTINCT(user_id)) AS kpi FROM( SELECT * FROM free_tree UNION ALL SELECT * FROM super_tree ) as free_super_tree WHERE date = current_date-1);"
+psql -U gtrindadi -d postgres -c "INSERT INTO daily_revenue_kpi (SELECT current_date-1 AS date, (SELECT SUM(super_tree_sends) FROM
+(SELECT user_id, MIN(super_tree.date) AS first_send FROM super_tree GROUP BY user_id HAVING MIN(super_tree.date) = current_date-1) AS first_send_yesterday
+JOIN (SELECT user_id, COUNT(*)-1 AS super_tree_sends FROM super_tree WHERE date = current_date-1 GROUP BY user_id) AS revenue
+ON first_send_yesterday.user_id = revenue.user_id)
++ (SELECT SUM(super_tree_sends) FROM (SELECT user_id, MIN(super_tree.date) AS first_send FROM super_tree GROUP BY user_id HAVING MIN(super_tree.date) < current_date-1) AS first_send_before_yesterday
+JOIN (SELECT user_id, COUNT(*) AS super_tree_sends FROM super_tree WHERE date = current_date-1 GROUP BY user_id) AS revenue
+ON first_send_before_yesterday.user_id = revenue.user_id) AS kpi);"
