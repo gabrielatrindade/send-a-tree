@@ -36,14 +36,15 @@ else
 fi
 
 #catch metrics
-psql -U gtrindadi -d postgres -f ~/jds_june_2019/metrics/super_tree_to_registrations_rate.sql > ~/jds_june_2019/metrics/super_tree_to_registrations_rate_output
-psql -U gtrindadi -d postgres -f ~/jds_june_2019/metrics/daily_active_users.sql > ~/jds_june_2019/metrics/daily_active_users_output
-psql -U gtrindadi -d postgres -f ~/jds_june_2019/metrics/daily_revenue.sql > ~/jds_june_2019/metrics/daily_revenue_output
+#psql -U gtrindadi -d postgres -f ~/jds_june_2019/metrics/super_tree_to_registrations_rate.sql > ~/jds_june_2019/metrics/super_tree_to_registrations_rate_output
+#psql -U gtrindadi -d postgres -f ~/jds_june_2019/metrics/daily_active_users.sql > ~/jds_june_2019/metrics/daily_active_users_output
+#psql -U gtrindadi -d postgres -f ~/jds_june_2019/metrics/daily_revenue.sql > ~/jds_june_2019/metrics/daily_revenue_output
 
 #sending e-mail
-mutt -s"REGISTRATIONS/SUPER TREE USERS WHO SENT MORE THAN ONE metric" gabizinha_hzs@hotmail.com < /home/gtrindadi/jds_june_2019/metrics/super_tree_to_registrations_rate_output
-mutt -s"DAILY ACTIVE USERS metric" gabizinha_hzs@hotmail.com < /home/gtrindadi/jds_june_2019/metrics/daily_active_users_output
-mutt -s"DAILY REVENUE metric" gabizinha_hzs@hotmail.com < /home/gtrindadi/jds_june_2019/metrics/daily_revenue_output
+#mutt -s"REGISTRATIONS/SUPER TREE USERS WHO SENT MORE THAN ONE metric" gabizinha_hzs@hotmail.com < /home/gtrindadi/jds_june_2019/metrics/super_tree_to_registrations_rate_output
+#mutt -s"DAILY ACTIVE USERS metric" gabizinha_hzs@hotmail.com < /home/gtrindadi/jds_june_2019/metrics/daily_active_users_output
+#mutt -s"DAILY REVENUE metric" gabizinha_hzs@hotmail.com < /home/gtrindadi/jds_june_2019/metrics/daily_revenue_output
+mutt -s"SEND A TREE REPORT" gabizinha_hzs@hotmail.com < ~/jds_june_2019/metrics/email_metrics_to_ben
 
 #puting metric datas into kpi tables
 psql -U gtrindadi -d postgres -c "INSERT INTO daily_active_users_kpi (SELECT current_date-1 AS date, COUNT(DISTINCT(user_id)) AS kpi FROM( SELECT * FROM free_tree UNION ALL SELECT * FROM super_tree ) as free_super_tree WHERE date = current_date-1);"
