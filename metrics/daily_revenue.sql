@@ -1,3 +1,6 @@
+INSERT INTO daily_revenue_kpi
+
+(
 -- Daily Revenue
 -- remember, the first super_tree is free, then I need to check if it is the first one or not
 SELECT current_date-1 AS date,
@@ -36,4 +39,4 @@ JOIN
     WHERE date = current_date-1
     GROUP BY user_id) AS revenue
 ON first_send_before_yesterday.user_id = revenue.user_id)
-AS daily_revenue;
+AS kpi --daily_revenue);
