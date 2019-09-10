@@ -39,4 +39,4 @@ JOIN
     WHERE date = current_date-1
     GROUP BY user_id) AS revenue
 ON first_send_before_yesterday.user_id = revenue.user_id)
-AS kpi --daily_revenue);
+AS kpi); --daily_revenue);
