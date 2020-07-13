@@ -5,7 +5,8 @@ The Junior Data Scientist's First Month [data36](courses.data36.com/).
 
 ## The course
 This course simulated a startup with an imaginarium application which it allowed to deal with a **Data Scientist daily tasks**. The mentor (Tomi) assigned different tasks every other day for 6 weeks, which are: Segmentation, Cohort Analysis, Prediction with Regression, and Machine Learning (Classification). <br>
-Here are the tasks performed on server, almost all by using Python. The tasks focused on SQL you can find on [data36 Repository](https://github.com/gabrielatrindade/data36).
+Here are the tasks performed on server, almost all of them by using Python. The tasks focused on SQL you can find on [data36 Repository](https://github.com/gabrielatrindade/data36). <br>
+*Note:* In this course, I also dealt with tasks like Creating a Server and Creating of Reports and Dashboards. The process was to Extract the data - from the API; Transform them - using Python; and Load to Postgres. The Google Data Studio Reports and Dashboards consumed Postgres data.
 
 ## Stack
 - Python
